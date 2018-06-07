@@ -111,3 +111,6 @@ venv.bak/
 misc.xml
 modules.xml
 vcs.xml
+
+#csv
+*.csv

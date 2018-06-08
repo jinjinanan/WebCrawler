@@ -114,3 +114,9 @@ vcs.xml
 
 #csv
 *.csv
+
+#json
+*.json
+
+#html
+*.html

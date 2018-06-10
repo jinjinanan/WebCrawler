@@ -1,4 +1,5 @@
 import scrapy
+from ..items import DmozItem
 
 class DmozSpider(scrapy.spiders.Spider):
     # 用于区别Spider。 该名字必须是唯一的，您不可以为不同的Spider设定相同的名字。
@@ -14,6 +15,10 @@ class DmozSpider(scrapy.spiders.Spider):
     ]
 
     def parse(self,response):
-        filename = response.url.split('/')[-2]
-        with open(filename,'wb') as f:
-            f.write(response.body)
+
+        for sel in response.css('.title-and-desc'):
+            item = DmozItem()
+            item['title'] = sel.xpath('a/div/text()').extract()
+            item['link'] = sel.xpath('a/@href').extract()
+            item['desc'] = sel.xpath('div/text()').extract()
+            yield item
